@@ -1,8 +1,10 @@
 import Image from "next/image";
+import AuthForm from "./components/AuthForm";
+
 
 export default function Home() {
   return (
-    <>
+    
     <div className="
     flex
     min-h-full 
@@ -27,6 +29,7 @@ export default function Home() {
 
 
       </div>
+      <AuthForm />
     </div>
-    </>);
+    );
 }
