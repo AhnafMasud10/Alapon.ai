@@ -1,28 +1,28 @@
 'use client';
 import { Button } from '@/app/components/Button';
 import Input from '@/app/components/inputs/input';
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react';
 import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
+import AuthSocialButton from './AuthSocialButton';
 
 const AuthForm = () => {
   type Variant = 'LOGIN' | 'REGISTER';
   
-  const[ variant, setVariant] = useState<Variant>('LOGIN');
-  const[isLoading,setIsLoading] = useState(false);
-  const toggleVariant = useCallback(() =>{ //useCallback optimises. login to register happens once but it doesnt need to go from register to login.
-    if(variant === 'LOGIN'){
-      setVariant('REGISTER')
-    }else {
-      setVariant('LOGIN')
+  const [variant, setVariant] = useState<Variant>('LOGIN');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toggleVariant = useCallback(() => {
+    if (variant === 'LOGIN') {
+      setVariant('REGISTER');
+    } else {
+      setVariant('LOGIN');
     }
-  },[variant])
+  }, [variant]);
 
   const {
     register,
     handleSubmit,
-    formState: { 
-      errors
-    }
+    formState: { errors }
   } = useForm<FieldValues>({
     defaultValues: {
       name: '',
@@ -31,73 +31,79 @@ const AuthForm = () => {
     }
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data)=> {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    if(variant=== 'REGISTER'){
-      //axios register
+    if (variant === 'REGISTER') {
+      // axios register logic
     }
-    if (variant==='LOGIN'){
-      //next auth sign in
+    if (variant === 'LOGIN') {
+      // next auth sign in logic
     }
-  }
+  };
 
-  const socialAction = (action:string) => {
+  const socialAction = (action: string) => {
     setIsLoading(true);
-    //nextauth social sign in
-  }
+    // nextauth social sign in logic
+  };
 
-
-    return (
-    <div className='
-    mt-8
-    sm:mx-auto
-    sm:w-full
-    sm:max-w-md'>
-        <div className='bg-white
-        px-4
-        py-8
-        shadow
-        sm:rounded-lg
-        sm:px-10
-        '>
-          <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
-            {variant === 'REGISTER' && (
+  return (
+    <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
+      <div className='bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10'>
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
+          {variant === 'REGISTER' && (
             <Input 
               id="name"
               label="Name" 
               register={register}
-              errors={errors}/>
-
+              errors={errors}
+            />
           )}
           <Input 
-              id="email"
-              label="Email address" 
-              type="email"
-              register={register}
-              errors={errors}/>
-
+            id="email"
+            label="Email address" 
+            type="email"
+            register={register}
+            errors={errors}
+          />
           <Input 
-              id="password"
-              label="Password" 
-              type="password"
-              register={register}
-              errors={errors}/>
-
-            <div>
-              <Button
-                disabled={isLoading}
-                fullwidth
-                type="submit"
-                
-
-              >
-                {variant=== 'LOGIN' ? 'Sign In' : 'Register'}
-              </Button>
+            id="password"
+            label="Password" 
+            type="password"
+            register={register}
+            errors={errors}
+          />
+          <div>
+            <Button
+              disabled={isLoading}
+              fullwidth
+              type="submit"
+            >
+              {variant === 'LOGIN' ? 'Sign In' : 'Register'}
+            </Button>
+          </div>
+        </form>
+        <div className='mt-6'>
+          <div className='relative'>
+            <div className='absolute inset-0 flex items-center '>
+              <div className='w-full border-t border-gray-300'/>
             </div>
-          </form>
+            <div className='relative flex justify-center text-sm'>
+              <span className='bg-white px-2 text-gray-500'>
+                Or continue with
+              </span>
+            </div>
+          </div>
+          <div className='mt-6 flex
+          gap-2'>
+            <AuthSocialButton/>
 
+          </div>
+
+          
         </div>
+      </div>
     </div>
-  )
-}
+  );
+};
+
 export default AuthForm;
