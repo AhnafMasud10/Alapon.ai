@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/app/components/Button';
 import Input from '@/app/components/inputs/input';
 import React, { useCallback, useState } from 'react'
 import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
@@ -44,6 +45,8 @@ const AuthForm = () => {
     setIsLoading(true);
     //nextauth social sign in
   }
+
+
     return (
     <div className='
     mt-8
@@ -58,7 +61,39 @@ const AuthForm = () => {
         sm:px-10
         '>
           <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
-            <Input/>
+            {variant === 'REGISTER' && (
+            <Input 
+              id="name"
+              label="Name" 
+              register={register}
+              errors={errors}/>
+
+          )}
+          <Input 
+              id="email"
+              label="Email address" 
+              type="email"
+              register={register}
+              errors={errors}/>
+
+          <Input 
+              id="password"
+              label="Password" 
+              type="password"
+              register={register}
+              errors={errors}/>
+
+            <div>
+              <Button
+                disabled={isLoading}
+                fullwidth
+                type="submit"
+                
+
+              >
+                {variant=== 'LOGIN' ? 'Sign In' : 'Register'}
+              </Button>
+            </div>
           </form>
 
         </div>
