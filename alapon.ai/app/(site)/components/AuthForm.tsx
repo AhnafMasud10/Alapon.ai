@@ -102,7 +102,7 @@ const AuthForm = () => {
         </div>
         <div className='flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500'>
           <div>
-            {variant === 'LOGIN' ? 'New to Messenger?' : 'Already have an account?'}
+            {variant === 'LOGIN' ? 'New to Messenger?' : ' Already have an account?'}
             <span
               onClick={toggleVariant}
               className='
@@ -111,7 +111,7 @@ const AuthForm = () => {
               cursor-pointer
             
             '>
-              {variant === 'LOGIN' ? 'Create an account' : 'Login'}
+              {variant === 'LOGIN' ? ' Create an account' : ' Login'}
             </span>
           </div>
         </div>
